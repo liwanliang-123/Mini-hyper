@@ -20,8 +20,17 @@ INCLUDES = -I./hypervisor/include
 
 # 源文件
 SRCS_ASM = ./hypervisor/src/head.S
-SRCS_C   = ./hypervisor/src/main.c
-OBJS     = $(BUILD_DIR)/head.o $(BUILD_DIR)/main.o
+
+SRCS_C   = ./hypervisor/src/main.c      \
+		   ./hypervisor/src/printf.c    \
+		   ./hypervisor/src/pl011.c     \
+		   ./hypervisor/src/utils.c
+
+OBJS     = $(BUILD_DIR)/head.o    \
+		   $(BUILD_DIR)/main.o    \
+		   $(BUILD_DIR)/printf.o  \
+		   $(BUILD_DIR)/pl011.o    \
+		   $(BUILD_DIR)/utils.o
 
 # 链接脚本生成
 LDS_SRC = ./hypervisor/src/lds/linker.ld.S
@@ -47,7 +56,7 @@ $(BUILD_DIR)/head.o: $(SRCS_ASM) | $(BUILD_DIR)
 	$(AS) $(ASFLAGS) $(INCLUDES) -c $< -o $@
 
 # 编译 C 文件
-$(BUILD_DIR)/main.o: $(SRCS_C) | $(BUILD_DIR)
+$(BUILD_DIR)/%.o: ./hypervisor/src/%.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 # 创建静态库
