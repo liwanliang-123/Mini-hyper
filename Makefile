@@ -27,7 +27,8 @@ SRCS_C   = ./hypervisor/src/main.c      \
 		   ./hypervisor/src/utils.c     \
 		   ./hypervisor/src/malloc.c    \
 		   ./hypervisor/src/spinlock.c  \
-		   ./hypervisor/src/kalloc.c
+		   ./hypervisor/src/kalloc.c    \
+		   ./hypervisor/src/vmm.c
 
 OBJS     = $(BUILD_DIR)/head.o    \
 		   $(BUILD_DIR)/main.o    \
@@ -36,7 +37,8 @@ OBJS     = $(BUILD_DIR)/head.o    \
 		   $(BUILD_DIR)/utils.o   \
 		   $(BUILD_DIR)/malloc.o   \
 		   $(BUILD_DIR)/spinlock.o  \
-		   $(BUILD_DIR)/kalloc.o
+		   $(BUILD_DIR)/kalloc.o   \
+		   $(BUILD_DIR)/vmm.o
 
 # 链接脚本生成
 LDS_SRC = ./hypervisor/src/lds/linker.ld.S
