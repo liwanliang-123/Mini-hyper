@@ -24,13 +24,19 @@ SRCS_ASM = ./hypervisor/src/head.S
 SRCS_C   = ./hypervisor/src/main.c      \
 		   ./hypervisor/src/printf.c    \
 		   ./hypervisor/src/pl011.c     \
-		   ./hypervisor/src/utils.c
+		   ./hypervisor/src/utils.c     \
+		   ./hypervisor/src/malloc.c    \
+		   ./hypervisor/src/spinlock.c  \
+		   ./hypervisor/src/kalloc.c
 
 OBJS     = $(BUILD_DIR)/head.o    \
 		   $(BUILD_DIR)/main.o    \
 		   $(BUILD_DIR)/printf.o  \
 		   $(BUILD_DIR)/pl011.o    \
-		   $(BUILD_DIR)/utils.o
+		   $(BUILD_DIR)/utils.o   \
+		   $(BUILD_DIR)/malloc.o   \
+		   $(BUILD_DIR)/spinlock.o  \
+		   $(BUILD_DIR)/kalloc.o
 
 # 链接脚本生成
 LDS_SRC = ./hypervisor/src/lds/linker.ld.S
