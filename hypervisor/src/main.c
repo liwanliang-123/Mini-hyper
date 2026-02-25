@@ -4,6 +4,7 @@
 #include "spinlock.h"
 #include "malloc.h"
 #include "kalloc.h"
+#include "gicv3.h"
 
 __attribute__((aligned(SZ_4K))) char sp_stack[SZ_4K * NCPU] = {0};
 
@@ -21,6 +22,10 @@ int hyper_init_primary()
     malloc_init();
     /* kalloc init */
     kalloc_init();
+
+    /* gicv3 init */
+    gic_v3_init();
+    irq_enable;
 
     return 0;
 }

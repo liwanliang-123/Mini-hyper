@@ -15,4 +15,10 @@
 #define PHYSIZE         (256 * 1024 * 1024)
 #define PHYEND          (PHYBASE + PHYSIZE)
 
+#define GICD_BASE   0x08000000
+#define GICD_SIZE   0x10000
+#define GICR_BASE   0x080a0000
+#define GICR_SIZE   0x80000     /* 0x2000 for one core */
+#define GICR_STRIDE 0x20000
+
 #endif
