@@ -138,7 +138,7 @@ void abort(const char *fmt, ...)
     va_list ap;
 
     va_start(ap, fmt);
-    printf("[X-Hyper abort]: ");
+    printf("[Mini-Hyper abort]: ");
     vprintf(fmt, ap);
     printf("\n");
     va_end(ap);

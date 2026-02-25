@@ -67,7 +67,7 @@ static void do_memory_mapping(u64 *pgt, vm_config_t *vm_config)
         } else {
             copy_size = vm_config->guest_image->image_size - p;
         }
-        /* copy the guest image content from X-Hyper image to pages */
+        /* copy the guest image content from Mini-Hyper image to pages */
         memcpy(page, (char *)vm_config->guest_image->start_addr + p, copy_size);
         create_guest_mapping(pgt, vm_config->entry_addr + p, (u64)page, PAGESIZE, S2PTE_NORMAL | S2PTE_RW);
     }
@@ -94,7 +94,7 @@ static void do_memory_mapping(u64 *pgt, vm_config_t *vm_config)
         } else {
             copy_size = vm_config->guest_dtb->image_size - p;
         }
-        /* copy the guest image content from X-Hyper image to pages */
+        /* copy the guest image content from Mini-Hyper image to pages */
         memcpy(page, (char *)vm_config->guest_dtb->start_addr + p, copy_size);
         create_guest_mapping(pgt, vm_config->dtb_addr + p, (u64)page, PAGESIZE, S2PTE_NORMAL | S2PTE_RW);
     }

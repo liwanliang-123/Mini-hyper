@@ -1,7 +1,7 @@
 #include "types.h"
 #include "guest.h"
 
-/* Guest vm image are packaged in X-Hyper Image with aarch64-linux-gnu--ld */
+/* Guest vm image are packaged in Mini-Hyper Image with aarch64-linux-gnu--ld */
 extern char _binary_Image_start[];
 extern char _binary_Image_end[];
 extern char _binary_Image_size[];

@@ -54,7 +54,7 @@ void test_create_vm_mapping(void)
         } else {
             copy_size = guest_vm_cfg.guest_image->image_size - p;
         }
-        /* copy the guest image content from X-Hyper image to pages */
+        /* copy the guest image content from Mini-Hyper image to pages */
         memcpy(page, (char *)guest_vm_cfg.guest_image->start_addr + p, copy_size);
         create_guest_mapping(vttbr, guest_vm_cfg.entry_addr + p, (u64)page, PAGESIZE, S2PTE_NORMAL | S2PTE_RW);
     }

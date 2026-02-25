@@ -230,7 +230,7 @@ static void gic_disable_int(u32 irq)
     u32 reg;
     int cpu = coreid();
     if(irq >= GIC_MIN_LPI) {
-        LOG_WARN("X-Hyper don't support LPIs\n");
+        LOG_WARN("Mini-Hyper don't support LPIs\n");
         return;
     }
 
@@ -251,7 +251,7 @@ static void gic_enable_int(u32 irq)
     u32 reg;
     int cpu = coreid();
     if(irq >= GIC_MIN_LPI) {
-        LOG_WARN("X-Hyper don't support LPIs\n");
+        LOG_WARN("Mini-Hyper don't support LPIs\n");
         return;
     }
 
@@ -298,7 +298,7 @@ static void gic_set_target(u32 irq, u32 target)
     }
 
     if(irq >= GIC_MIN_LPI) {
-        LOG_WARN("X-Hyper don't support LPIs\n");
+        LOG_WARN("Mini-Hyper don't support LPIs\n");
         return;
     }
 

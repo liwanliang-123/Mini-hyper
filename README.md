@@ -1,4 +1,4 @@
-# X-Hyper
+# Mini-Hyper
 A minimal Hypervisor used to help the people who are interested in AArch64 hypervisor.
 
 # Steps
