@@ -3,8 +3,11 @@
 
 #include "types.h"
 #include "guest.h"
+#include "vcpu.h"
 #include "layout.h"
 #include "spinlock.h"
+#include "vmmio.h"
+#include "vgicv3.h"
 
 struct vmmio_access;
 
@@ -30,5 +33,9 @@ typedef struct vm {
     u64    dtb;
 } vm_t;
 
+void create_guest_vm(vm_config_t *vm_config);
+void create_mmio_trap(struct vm *vm, u64 ipa, u64 size,
+                      int (*vmmio_read)(struct vcpu *, u64, u64 *, struct vmmio_access *),
+                      int (*vmmio_write)(struct vcpu *, u64, u64, struct vmmio_access *));
 
 #endif

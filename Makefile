@@ -15,11 +15,15 @@ CFLAGS = $(ARCH_FLAGS) -ffreestanding -Wall -Wextra -Wfatal-errors -Werror -Wno-
 CFLAGS += -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-function -Wno-unused-variable -Wno-override-init
 ASFLAGS = $(ARCH_FLAGS) -ffreestanding -Wextra -Wfatal-errors -Werror -O0 -g3 -D__ASSEMBLY__
 
+# 二进制对象文件，位于 linux/ 目录
+BIN_OBJS = linux/image.o linux/virt.dtb.o linux/rootfs.cpio.o
+
 # 头文件路径
 INCLUDES = -I./hypervisor/include
 
 # 源文件
-SRCS_ASM = ./hypervisor/src/head.S
+SRCS_ASM = ./hypervisor/src/head.S \
+		   ./hypervisor/src/vector.S
 
 SRCS_C   = ./hypervisor/src/main.c      \
 		   ./hypervisor/src/printf.c    \
@@ -29,7 +33,15 @@ SRCS_C   = ./hypervisor/src/main.c      \
 		   ./hypervisor/src/spinlock.c  \
 		   ./hypervisor/src/kalloc.c    \
 		   ./hypervisor/src/vmm.c       \
-		   ./hypervisor/src/gicv3.c
+		   ./hypervisor/src/gicv3.c     \
+		   ./hypervisor/src/el2_sync.c  \
+		   ./hypervisor/src/el1_sync.c  \
+		   ./hypervisor/src/vpsci.c     \
+		   ./hypervisor/src/vmmio.c     \
+		   ./hypervisor/src/vgicv3.c    \
+		   ./hypervisor/src/vm.c        \
+		   ./hypervisor/src/vcpu.c      \
+		   ./hypervisor/src/guest.c
 
 OBJS     = $(BUILD_DIR)/head.o    \
 		   $(BUILD_DIR)/main.o    \
@@ -40,7 +52,16 @@ OBJS     = $(BUILD_DIR)/head.o    \
 		   $(BUILD_DIR)/spinlock.o  \
 		   $(BUILD_DIR)/kalloc.o   \
 		   $(BUILD_DIR)/vmm.o      \
-		   $(BUILD_DIR)/gicv3.o
+		   $(BUILD_DIR)/gicv3.o    \
+		   $(BUILD_DIR)/vector.o   \
+		   $(BUILD_DIR)/el2_sync.o \
+		   $(BUILD_DIR)/el1_sync.o \
+		   $(BUILD_DIR)/vpsci.o     \
+		   $(BUILD_DIR)/vmmio.o     \
+		   $(BUILD_DIR)/vgicv3.o    \
+		   $(BUILD_DIR)/vm.o        \
+		   $(BUILD_DIR)/vcpu.o      \
+		   $(BUILD_DIR)/guest.o
 
 # 链接脚本生成
 LDS_SRC = ./hypervisor/src/lds/linker.ld.S
@@ -62,7 +83,7 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 # 编译汇编文件
-$(BUILD_DIR)/head.o: $(SRCS_ASM) | $(BUILD_DIR)
+$(BUILD_DIR)/%.o: ./hypervisor/src/%.S | $(BUILD_DIR)
 	$(AS) $(ASFLAGS) $(INCLUDES) -c $< -o $@
 
 # 编译 C 文件
@@ -78,8 +99,8 @@ $(LDS_OUT): $(LDS_SRC) | $(BUILD_DIR)
 	cpp -P -E -D__ASSEMBLY__ $(INCLUDES) $< -o $@
 
 # 链接生成 ELF
-$(TARGET_ELF): $(LIB_NAME) $(LDS_OUT)
-	$(LD) -pie -Map $(MAP_FILE) -T$(LDS_OUT) $(LIB_NAME) -o $@
+$(TARGET_ELF): $(LIB_NAME) $(BIN_OBJS) $(LDS_OUT)
+	$(LD) -pie -Map $(MAP_FILE) -T$(LDS_OUT) $(LIB_NAME) $(BIN_OBJS) -o $@
 
 # 生成原始二进制
 $(TARGET_BIN): $(TARGET_ELF)
