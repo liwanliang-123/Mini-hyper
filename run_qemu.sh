@@ -5,8 +5,8 @@ QCPU="cortex-a72"
 QEMU="/usr/bin/qemu-system-aarch64"
 GIC_VERSION=3
 MACHINE="virt,gic-version=$GIC_VERSION,virtualization=on"
-NCPU=1
-QEMUOPTS="-cpu $QCPU -machine $MACHINE -smp $NCPU -m 512M -nographic \
+NCPU=4
+QEMUOPTS="-cpu $QCPU -machine $MACHINE -smp $NCPU -m 256M -nographic \
           -bios ./u-boot/u-boot.bin \
           -device loader,file=./build/Mini-Hyper_Uimage,addr=0x40200000,force-raw=on"
 
@@ -17,4 +17,3 @@ else
     echo "run mode ..."
     $QEMU $QEMUOPTS
 fi
-

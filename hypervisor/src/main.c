@@ -21,6 +21,19 @@ static void print_logo(void)
     printf("\n");
 }
 
+int hyper_init_secondary()
+{
+    LOG_INFO("core %d is activated\n", coreid());
+
+    gic_percpu_init();
+    irq_enable;
+    stage2_mmu_init();
+    hyper_setup();
+
+    start_vcpu();
+    return 0;
+}
+
 int hyper_init_primary()
 {
     print_logo();

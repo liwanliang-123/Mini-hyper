@@ -16,7 +16,8 @@ _start:
     mul     x3, x3, x2
     add     x0, x0, x3
     mov     sp, x0
-    bl      hyper_init_primary
+    cbz     x1, hyper_init_primary
+    bl      hyper_init_secondary
     /* spin here */
     b       .
 
