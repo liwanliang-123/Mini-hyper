@@ -37,7 +37,7 @@ static s32 vpsci_cpu_on(vcpu_t *vcpu, u64 funid, u64 target_cpu, u64 entry_addr)
     return smc_call(PSCI_SYSTEM_CPUON, target_cpu, (u64)_start);
 }
 
-static s32 vpsci_cpu_off(vcpu_t *vcpu, u64 funid, u64 target_cpu, u64 entry_addr)
+static s32 vpsci_cpu_off(vcpu_t *vcpu, u64 funid, u64 target_cpu)
 {
     u32 power_state = (u32)target_cpu;
     LOG_INFO("=====> vcpu %d, power_state=0x%x\n", vcpu->cpuid, power_state);
@@ -56,7 +56,7 @@ static s32 vpsci_cpu_off(vcpu_t *vcpu, u64 funid, u64 target_cpu, u64 entry_addr
 
 static s32 vpsci_system_reboot(vcpu_t *vcpu, u64 funid, u64 target_cpu, u64 entry_addr)
 {
-    int ret = (s64)vpsci_cpu_off(vcpu, funid, target_cpu, entry_addr);
+    int ret = (s64)vpsci_cpu_off(vcpu, funid, target_cpu);
     return (s64)vpsci_cpu_on(vcpu, funid, target_cpu, entry_addr);
 }
 
@@ -81,7 +81,7 @@ u64 vpsci_trap_smc(vcpu_t *vcpu, u64 funid, u64 target_cpu, u64 entry_addr)
         case PSCI_SYSTEM_CPUON:
             return (s64)vpsci_cpu_on(vcpu, funid, target_cpu, entry_addr);
         case PSCI_CPU_OFF:  // echo 0 > /sys/devices/system/cpu/cpu1/online
-            return (s64)vpsci_cpu_off(vcpu, funid, target_cpu, entry_addr);
+            return (s64)vpsci_cpu_off(vcpu, funid, target_cpu);
         case PSCI_AFFINITY_INFO:
             return PSCI_0_2_AFFINITY_LEVEL_OFF;
         case PSCI_FEATURE:    /* Linux will use this funid to get the PSCI FEATURE */

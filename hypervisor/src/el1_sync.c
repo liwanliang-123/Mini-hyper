@@ -14,6 +14,15 @@
 
 #define VSYSREG_ICC_SGI1R_EL1   SYSREG_OPCODE(3, 0, 12, 11, 5)
 
+enum {
+    WFI_WFE_INSTRUCTION = 0b000001,
+    SMC_INSTRUCTION     = 0b010111,
+    SYSTEM_INSTRUCTION  = 0b011000,
+    INSTRUCTION_ABORT   = 0b100000,
+    DATA_ABORT          = 0b100100,
+    HVC_INSTRUCTION     = 0b010110,
+};
+
 static void vpsci_handler(vcpu_t *vcpu)
 {
     /*
@@ -120,9 +129,9 @@ void el1_sync_proc()
     switch(esr_ec) {
 
         /* HVC instruction execution in AArch64 state, when HVC is not disabled. */
-        case 0x16:
+        case HVC_INSTRUCTION:
             // LOG_INFO("\033[32m [el1_sync_proc] hvc trap from EL1\033[0m\n");
-            LOG_INFO("\033[1;32m [el1_sync_proc] hvc trap from EL1\033[0m\n");
+            LOG_INFO("\033[1;32mhvc trap from EL1\033[0m\n");
             /* on hvc call, iss is the imm of a hvc */
             if(hvc_smc_handler(vcpu, esr_iss) != 0) {
                 abort("Unknown HVC call #%d", esr_iss);
@@ -131,7 +140,7 @@ void el1_sync_proc()
             vcpu->regs.elr += 0;
             break;
         /* SMC instruction execution in AArch64 state, when SMC is not disabled. */
-        case 0x17:
+        case SMC_INSTRUCTION:
             LOG_INFO("\033[32m[el1_sync_proc] smc trap from EL1\033[0m\n");
             /* on smc call, iss is the imm of a smc */
             if(hvc_smc_handler(vcpu, esr_iss) != 0) {
@@ -142,14 +151,14 @@ void el1_sync_proc()
              */
             vcpu->regs.elr += 4;
             break;
-        case 0x18:
+        case SYSTEM_INSTRUCTION:
             /* trapped by read/write system register */
             if(vsysreg_handler(vcpu, esr_iss) < 0) {
                 abort("Unknow system register trap");
             }
             vcpu->regs.elr += 4;
             break;
-        case 0x24:
+        case DATA_ABORT:
             //LOG_INFO("\033[32m[el1_sync_proc] data abort from EL0/1\033[0m\n");
             data_abort_handler(vcpu, esr_iss, far);
             vcpu->regs.elr += 4;
