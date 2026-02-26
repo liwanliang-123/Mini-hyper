@@ -54,9 +54,9 @@ int malloc_init(void)
                        (void *)((size_t)blk_pool_start + ALIGN_UP(sizeof(blk_pool_t))),
                        CONFIG_BLK_SIZE);
     if (!ret) {
-        LOG_INFO("malloc have been initialized: \n");
-        LOG_INFO("malloc: pool_start : %x\n", blk_pool_start);
-        LOG_INFO("malloc: pool_size  : %x\n", CONFIG_BLK_SIZE);
+        // LOG_INFO("malloc have been initialized: \n");
+        // LOG_INFO("malloc: pool_start : %x\n", blk_pool_start);
+        // LOG_INFO("malloc: pool_size  : %x\n", CONFIG_BLK_SIZE);
         sys_blk = blk_pool_start;
     }
 
@@ -109,7 +109,7 @@ void *blk_alloc(blk_pool_t *pool, uint32_t size)
 
     if(blk_list) {
         if(avail_blk == (uintptr_t)0) {
-            abort("xmalloc failed to get available blk");
+            abort("malloc failed to get available blk");
         } else {
             blk_list->nofree_cnt++;
         }

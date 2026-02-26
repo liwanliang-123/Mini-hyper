@@ -15,15 +15,33 @@ extern guest_t guest_vm_image;
 extern guest_t guest_virt_dtb;
 extern guest_t guest_rootfs;
 
+static inline int get_current_el(void)
+{
+    int el;
+    __asm__ volatile("mrs %0, CurrentEL" : "=r" (el));
+    return (el >> 2) & 0x3;
+}
+
 static void print_logo(void)
 {
-    printf("Welcome to Mini-Hyper OS!\n");
+    // printf("\033[1;32m🐧\033[0m Welcome to Mini-Hyper OS, running on EL%d\n", get_current_el());
+    printf("\033[1;32m🐧\033[0m Welcome to Mini-Hyper — a Type-1 Hypervisor OS.\n");
+    printf("\n");
+    printf("   .--.\n");
+    printf("  |o_o |\n");
+    printf("  |:_/ |\n");
+    printf(" //   \\ \\\n");
+    printf("(|     | )\n");
+    printf("/'\\_   _/`\\\n");
+    printf("\\___)=(___/\n");
+    printf("\n");
+    printf("\033[1;32m✓\033[0m Starting initializing system ...");
     printf("\n");
 }
 
 int hyper_init_secondary()
 {
-    LOG_INFO("core %d is activated\n", coreid());
+    LOG_INFO("pcpu %d is activated\n", coreid());
 
     gic_percpu_init();
     irq_enable;
@@ -52,7 +70,7 @@ int hyper_init_primary()
 
     pcpu_init();
     vcpu_init();
-    LOG_INFO("Pcpu/vcpu arrays have been initialized\n");
+    // LOG_INFO("Pcpu/vcpu arrays have been initialized\n");
 
     vm_config_t guest_vm_cfg = {
         .guest_image  = &guest_vm_image,

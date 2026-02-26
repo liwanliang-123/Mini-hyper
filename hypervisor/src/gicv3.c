@@ -98,6 +98,7 @@ static void gic_dist_init(void)
     u32 gicd_type, gic_irqs;
     s32 i, nr_regs;
 
+    LOG_INFO("GICV3 distributor configuration ...\n");
     /* Disable Distributor */
     GICD_WRITE32(GICD_CTLR, 0);
     gic_dist_wait_for_rwp();
@@ -219,6 +220,7 @@ static void gic_hyp_init(void)
 /* Initialize GIC Restributor and CPU interface */
 void gic_percpu_init(void)
 {
+    LOG_INFO("GICV3 redistributor and cpu interface configuration ...\n");
     gic_redist_init();
     gic_icc_init();
     gic_hyp_init();

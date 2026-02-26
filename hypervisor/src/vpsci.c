@@ -23,7 +23,7 @@ static s32 vpsci_migrate_info_type()
  */
 static s32 vpsci_cpu_on(vcpu_t *vcpu, u64 funid, u64 target_cpu, u64 entry_addr)
 {
-    LOG_INFO("Vpsci cpu on call for vcpu %d on entrypoint %p\n", target_cpu, entry_addr);
+    LOG_INFO("psci cpu on call for vcpu %d on entrypoint %p\n", target_cpu, entry_addr);
     if(target_cpu >= (u64)vcpu->vm->nvcpu) {
         LOG_WARN("Vpsci failed to wakeup vcpu\n");
     }
@@ -40,7 +40,7 @@ static s32 vpsci_cpu_on(vcpu_t *vcpu, u64 funid, u64 target_cpu, u64 entry_addr)
 static s32 vpsci_cpu_off(vcpu_t *vcpu, u64 funid, u64 target_cpu)
 {
     u32 power_state = (u32)target_cpu;
-    LOG_INFO("=====> vcpu %d, power_state=0x%x\n", vcpu->cpuid, power_state);
+    LOG_INFO("psci cpu off call for vcpu %d\n", vcpu->cpuid);
     if(vcpu->cpuid == 0) {
         LOG_WARN("Vpsci failed to boot cpu cannot hotplug\n");
         // return -1;

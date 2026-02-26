@@ -55,7 +55,7 @@ void kalloc_init()
         free_one_page((void *)page);
     }
 
-    LOG_INFO("Kalloc have been initialized: \n");
-    LOG_INFO("Kalloc: page start addr : %x\n", (u64)HIMAGE_END);
-    LOG_INFO("Kalloc: page numbers    : %x\n", (PHYEND - (u64)HIMAGE_END)/PAGESIZE);
+    // LOG_INFO("Kalloc have been initialized: \n");
+    // LOG_INFO("Kalloc: page start addr : %x\n", (u64)HIMAGE_END);
+    // LOG_INFO("Kalloc: page numbers    : %x\n", (PHYEND - (u64)HIMAGE_END)/PAGESIZE);
 }

@@ -112,7 +112,7 @@ void stage2_mmu_init(void)
     /* Physical Address range supported */
     u64 feature;
     read_sysreg(feature, id_aa64mmfr0_el1);
-    LOG_INFO("PARange bits is %d\n", PA_RANGE(feature));
+    // LOG_INFO("PARange bits is %d\n", PA_RANGE(feature));
 
     /*
      * T0SZ = 64 - 20 = 44 : (IPA range is 2^(64-20) = 2^44)
@@ -124,11 +124,11 @@ void stage2_mmu_init(void)
                VTCR_SH0(0) | VTCR_TG0(0) | VTCR_NSW |
                VTCR_NSA | VTCR_PS(4);
 
-    LOG_INFO("Setting vtcr_el2 to 0x%x\n", vtcr);
+    // LOG_INFO("Setting vtcr_el2 to 0x%x\n", vtcr);
     write_sysreg(vtcr_el2, vtcr);
 
     u64 mair = (DEVICE_nGnRnE << (8 * DEVICE_nGnRnE_INDEX)) | (NORMAL_NC << (8 * NORMAL_NC_INDEX));
-    LOG_INFO("Setting mair_el2 to 0x%x\n", mair);
+    // LOG_INFO("Setting mair_el2 to 0x%x\n", mair);
     write_sysreg(mair_el2, mair);
 
     isb();

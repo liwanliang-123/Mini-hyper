@@ -54,7 +54,8 @@ static void do_memory_mapping(u64 *pgt, vm_config_t *vm_config)
     char *page;
 
     /* create guest image mapping */
-    LOG_INFO("-->Create guest image mapping\n");
+    LOG_INFO("Starting the stage2 mapping ...\n");
+    // LOG_INFO("-->Create guest image mapping\n");
     u64 copy_size;
     for(p = 0; p < vm_config->guest_image->image_size; p += PAGESIZE) {
         char *page = alloc_one_page();
@@ -72,7 +73,7 @@ static void do_memory_mapping(u64 *pgt, vm_config_t *vm_config)
         create_guest_mapping(pgt, vm_config->entry_addr + p, (u64)page, PAGESIZE, S2PTE_NORMAL | S2PTE_RW);
     }
 
-    LOG_INFO("-->Create normal range mapping for guest\n");
+    // LOG_INFO("-->Create normal range mapping for guest\n");
     for( ; p < vm_config->ram_size; p += PAGESIZE) {
         /* Alloc a page size physical memory */
         page = alloc_one_page();
@@ -82,7 +83,7 @@ static void do_memory_mapping(u64 *pgt, vm_config_t *vm_config)
         create_guest_mapping(pgt, vm_config->entry_addr + p, (u64)page, PAGESIZE, S2PTE_NORMAL | S2PTE_RW);
     }
 
-    LOG_INFO("-->Create dtb range mapping for guest\n");
+    // LOG_INFO("-->Create dtb range mapping for guest\n");
     for(p = 0; p < vm_config->guest_dtb->image_size; p += PAGESIZE) {
         char *page = alloc_one_page();
         if(page == NULL) {
@@ -133,28 +134,28 @@ void create_guest_vm(vm_config_t *vm_config)
     }
 
     LOG_INFO("Creating guest vm ...\n");
-    LOG_INFO("-->guest image name  is %s\n", guest_img->guest_name);
-    LOG_INFO("-->guest image start is %x\n", guest_img->start_addr);
-    LOG_INFO("-->guest image end   is %x\n", guest_img->end_addr);
-    LOG_INFO("-->guest image size  is %x\n", guest_img->image_size);
+    LOG_INFO("guest image name  is %s\n", guest_img->guest_name);
+    LOG_INFO("guest image start is %x\n", guest_img->start_addr);
+    LOG_INFO("guest image end   is %x\n", guest_img->end_addr);
+    // LOG_INFO("-->guest image size  is %x\n", guest_img->image_size);
     LOG_INFO("guest vm entry addr is %x\n", vm_config->entry_addr);
 
     if(guest_dtb != NULL) {
-        LOG_INFO("-->guest dtb name  is %s\n", guest_dtb->guest_name);
-        LOG_INFO("-->guest dtb start is %x\n", guest_dtb->start_addr);
-        LOG_INFO("-->guest dtb end   is %x\n", guest_dtb->end_addr);
-        LOG_INFO("-->guest dtb size  is %x\n", guest_dtb->image_size);
+        // LOG_INFO("-->guest dtb name  is %s\n", guest_dtb->guest_name);
+        // LOG_INFO("-->guest dtb start is %x\n", guest_dtb->start_addr);
+        // LOG_INFO("-->guest dtb end   is %x\n", guest_dtb->end_addr);
+        // LOG_INFO("-->guest dtb size  is %x\n", guest_dtb->image_size);
     }
 
     if(guest_initrd != NULL) {
-        LOG_INFO("-->guest initrd name  is %s\n", guest_initrd->guest_name);
-        LOG_INFO("-->guest initrd start is %x\n", guest_initrd->start_addr);
-        LOG_INFO("-->guest initrd end   is %x\n", guest_initrd->end_addr);
-        LOG_INFO("-->guest initrd size  is %x\n", guest_initrd->image_size);
+        // LOG_INFO("-->guest initrd name  is %s\n", guest_initrd->guest_name);
+        // LOG_INFO("-->guest initrd start is %x\n", guest_initrd->start_addr);
+        // LOG_INFO("-->guest initrd end   is %x\n", guest_initrd->end_addr);
+        // LOG_INFO("-->guest initrd size  is %x\n", guest_initrd->image_size);
     }
 
-    LOG_INFO("-->guest vcpus is    %d\n", vm_config->ncpu);
-    LOG_INFO("-->guest ram size is %x\n", vm_config->ram_size);
+    LOG_INFO("guest vcpus is    %d\n", vm_config->ncpu);
+    // LOG_INFO("-->guest ram size is %x\n", vm_config->ram_size);
 
     /* alloc a vm */
     vm_t *vm = (vm_t *)malloc(sizeof(vm_t));
@@ -181,7 +182,7 @@ void create_guest_vm(vm_config_t *vm_config)
     vm->vgic_dist = create_vgic_dist(vm);
 
     /* set vcpu[0] ready */
-    LOG_INFO("-->Set Guest vm vcpu[0] as ready\n");
+    // LOG_INFO("-->Set Guest vm vcpu[0] as ready\n");
     vm->vcpus[0]->state = VCPU_READY;
 
     return;

@@ -5,6 +5,13 @@
 .type    _start, function
 .align 4
 
+/*
+    cpu0 => [sp_stack, sp_stack+4KB)
+    cpu1 => [sp_stack+4KB, sp_stack+8KB)
+    cpu2 => [sp_stack+8KB, sp_stack+12KB)
+    cpu3 => [sp_stack+12KB, sp_stack+16KB)
+*/
+
 _start:
     /* Set stack for c code */
     adrp    x0, sp_stack
