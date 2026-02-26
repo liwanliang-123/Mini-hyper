@@ -1,6 +1,8 @@
 #/bin/bash
 
-cp /home/lwl/work/project/t-hyp-docker/user_home/code-base/out/build_linux_arm64/arch/arm64/boot/Image ./
+cd /home/lwl/Hypervisor/test/Mini-Hyper/linux/src/linux6.19.0/ && sh build.sh && cd -
+
+cp -v /home/lwl/Hypervisor/test/Mini-Hyper/linux/src/linux6.19.0/arch/arm64/boot/Image ./
 
 aarch64-linux-gnu-objcopy -I binary -O elf64-littleaarch64 -B aarch64 ./Image ./image.o
 
