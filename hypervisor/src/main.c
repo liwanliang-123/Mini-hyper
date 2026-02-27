@@ -80,7 +80,7 @@ int hyper_init_primary()
         .dtb_addr     = 0x80000000,  /* virt dtb ipa */
         .rootfs_addr  = 0x84000000,  /* rootfs ipa */
         .ram_size     = 0x8000000,   /* 128M */
-        .ncpu         = 2,
+        .ncpu         = 4,
     };
 
     create_guest_vm(&guest_vm_cfg);

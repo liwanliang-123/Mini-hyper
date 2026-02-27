@@ -74,6 +74,12 @@
 					core1 {
 						cpu = <0x8001>;
 					};
+					core2 {
+						cpu = <0x8005>;
+					};
+					core3 {
+						cpu = <0x8006>;
+					};
 				};
 			};
 		};
@@ -89,6 +95,22 @@
 		cpu@1 {
 			phandle = <0x8001>;
 			reg = <0x1>;
+			enable-method = "psci";
+			compatible = "arm,cortex-a72";
+			device_type = "cpu";
+		};
+
+		cpu@2 {
+			phandle = <0x8005>;
+			reg = <0x2>;
+			enable-method = "psci";
+			compatible = "arm,cortex-a72";
+			device_type = "cpu";
+		};
+
+		cpu@3 {
+			phandle = <0x8006>;
+			reg = <0x3>;
 			enable-method = "psci";
 			compatible = "arm,cortex-a72";
 			device_type = "cpu";

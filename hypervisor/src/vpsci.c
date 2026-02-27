@@ -60,6 +60,11 @@ static s32 vpsci_system_reboot(vcpu_t *vcpu, u64 funid, u64 target_cpu, u64 entr
     return (s64)vpsci_cpu_on(vcpu, funid, target_cpu, entry_addr);
 }
 
+static s32 vpsci_system_off(u64 funid)
+{
+    return smc_call(funid, 0, 0);
+}
+
 u64 vpsci_trap_smc(vcpu_t *vcpu, u64 funid, u64 target_cpu, u64 entry_addr)
 {
     if(vcpu == NULL) {
@@ -72,7 +77,8 @@ u64 vpsci_trap_smc(vcpu_t *vcpu, u64 funid, u64 target_cpu, u64 entry_addr)
         case PSCI_MIGRATE_INFO_TYPE:
             return (s64)vpsci_migrate_info_type();
         case PSCI_SYSTEM_OFF:  // echo o > /proc/sysrq-trigger
-            LOG_WARN("Unsupported PSCI CPU OFF\n");
+            vpsci_system_off(funid);
+            // LOG_WARN("Unsupported PSCI CPU OFF\n");
             break;
         case PSCI_SYSTEM_RESET:
             return (s64)vpsci_system_reboot(vcpu, funid, target_cpu, entry_addr);
