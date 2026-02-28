@@ -7,6 +7,7 @@
 #include "gicv3.h"
 #include "vmm.h"
 #include "vm.h"
+#include "timer.h"
 
 __attribute__((aligned(SZ_4K))) char sp_stack[SZ_4K * NCPU] = {0};
 
@@ -54,6 +55,8 @@ int hyper_init_secondary()
 
 int hyper_init_primary()
 {
+    /* read cntfrq_el0 & cntpct_el0 */
+    timer_init();
     print_logo();
 
     /* xmalloc init */
