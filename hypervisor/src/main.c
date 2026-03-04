@@ -26,7 +26,9 @@ static inline int get_current_el(void)
 static void print_logo(void)
 {
     // printf("\033[1;32m🐧\033[0m Welcome to Mini-Hyper OS, running on EL%d\n", get_current_el());
-    printf("\033[1;32m🐧\033[0m Welcome to Mini-Hyper — a Type-1 Hypervisor OS.\n");
+    printf("------------------------------------------------------------\n");
+    printf("\033[1;32m     🐧\033[0m Welcome to Mini-Hyper — a Type-1 Hypervisor OS.\n");
+    printf("------------------------------------------------------------\n");
     printf("\n");
     printf("   .--.\n");
     printf("  |o_o |\n");
@@ -36,7 +38,7 @@ static void print_logo(void)
     printf("/'\\_   _/`\\\n");
     printf("\\___)=(___/\n");
     printf("\n");
-    printf("\033[1;32m✓\033[0m Starting initializing system ...");
+    printf("\033[1;32m✓\033[0m Starting initializing Mini-Hyper OS ...");
     printf("\n");
 }
 

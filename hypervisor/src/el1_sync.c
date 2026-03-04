@@ -130,7 +130,7 @@ void el1_sync_proc()
 
         /* HVC instruction execution in AArch64 state, when HVC is not disabled. */
         case HVC_INSTRUCTION:
-            LOG_INFO("\033[1;32mhvc trap from VM\033[0m\n");
+            LOG_INFO("\033[1;32mhvc trap from LINUX_VM\033[0m\n");
             /* on hvc call, iss is the imm of a hvc */
             if(hvc_smc_handler(vcpu, esr_iss) != 0) {
                 abort("Unknown HVC call #%d", esr_iss);

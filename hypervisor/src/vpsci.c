@@ -42,7 +42,7 @@ static s32 vpsci_cpu_off(vcpu_t *vcpu, u64 funid, u64 target_cpu)
     u32 power_state = (u32)target_cpu;
     LOG_INFO("psci cpu off call for vcpu %d\n", vcpu->cpuid);
     if(vcpu->cpuid == 0) {
-        LOG_WARN("Vpsci failed to boot cpu cannot hotplug\n");
+        // LOG_WARN("Vpsci failed to boot cpu cannot hotplug\n");
         // return -1;
     }
 
@@ -86,7 +86,7 @@ u64 vpsci_trap_smc(vcpu_t *vcpu, u64 funid, u64 target_cpu, u64 entry_addr)
             break;
         case PSCI_SYSTEM_CPUON:
             return (s64)vpsci_cpu_on(vcpu, funid, target_cpu, entry_addr);
-        case PSCI_CPU_OFF:  // echo 0 > /sys/devices/system/cpu/cpu1/online
+        case PSCI_CPU_OFF:  // echo 0 > /sys/devices/system/cpu/cpu1/online    grep "processor" /proc/cpuinfo
             return (s64)vpsci_cpu_off(vcpu, funid, target_cpu);
         case PSCI_AFFINITY_INFO:
             return PSCI_0_2_AFFINITY_LEVEL_OFF;

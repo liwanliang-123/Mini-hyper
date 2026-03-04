@@ -49,7 +49,8 @@ echo "创建 init 文件"
 cat > init << 'EOF'
 #!/bin/sh
 # devtmpfs does not get automounted for initramfs
-echo "------>  I am a VM on X-Hyper <------"
+echo -e " "
+echo -e "\033[32m    LINUX_VM successfully started on MiniHyper OS\033[0m"
 /bin/mount -t devtmpfs devtmpfs /dev
 exec 0</dev/console
 exec 1>/dev/console
@@ -65,7 +66,7 @@ cat > etc/init.d/rcS << 'EOF'
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib:/usr/lib
 export PATH LD_LIBRARY_PATH runlevel
-/bin/hostname hyperOS
+/bin/hostname MiniHyperOs
 mount -a
 mkdir /dev/pts
 mount -t devpts devpts /dev/pts
@@ -97,7 +98,7 @@ EOF
 # 创建 /etc/profile
 echo "创建 /etc/profile"
 cat > etc/profile << 'EOF'
-USER="root"
+USER="lwl"
 LOGNAME=$USER
 HOSTNAME=`/bin/hostname`
 HOME=/root

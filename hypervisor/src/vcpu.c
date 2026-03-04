@@ -61,6 +61,8 @@ vcpu_t *create_vcpu(vm_t *vm, int vcpuid, u64 entry)
         abort("Unable to alloc a vcpu");
     }
 
+    LOG_INFO("Start creating vcpu%d\n", vcpuid);
+
     vcpu->core_name = "Cortex-A72";
     vcpu->vm        = vm;
     vcpu->cpuid     = vcpuid;
@@ -135,6 +137,7 @@ void start_vcpu()
         abort("vcpu is not ready");
     }
 
-    LOG_INFO("pcpu %d: starting vcpu %d\n", id, vcpu->cpuid);
+    // LOG_INFO("pcpu %d: starting vcpu %d\n", id, vcpu->cpuid);
+    LOG_INFO("pcpu%d starts to boot up the vcpu%d\n", id, vcpu->cpuid);
     switch_vcpu(vcpu);
 }
