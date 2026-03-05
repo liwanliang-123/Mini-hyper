@@ -1,0 +1,6 @@
+#ifndef _LINUX_VIRTIO_TEST_H_
+#define _LINUX_VIRTIO_TEST_H_
+
+#define VIRTIO_TEST_F_CAN_PRINT 0
+
+#endif

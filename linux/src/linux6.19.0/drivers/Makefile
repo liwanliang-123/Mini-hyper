@@ -47,6 +47,7 @@ obj-y				+= soc/
 obj-$(CONFIG_PM_GENERIC_DOMAINS)	+= pmdomain/
 
 obj-y				+= virtio/
+obj-y				+= virtiotest/
 obj-$(CONFIG_VDPA)		+= vdpa/
 obj-$(CONFIG_XEN)		+= xen/
 

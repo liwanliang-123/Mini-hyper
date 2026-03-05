@@ -42,7 +42,8 @@ SRCS_C   = ./hypervisor/src/main.c      \
 		   ./hypervisor/src/vm.c        \
 		   ./hypervisor/src/vcpu.c      \
 		   ./hypervisor/src/guest.c     \
-		   ./hypervisor/src/timer.c
+		   ./hypervisor/src/timer.c     \
+		   ./hypervisor/src/virtio_dev.c
 
 OBJS     = $(BUILD_DIR)/head.o    \
 		   $(BUILD_DIR)/main.o    \
@@ -63,7 +64,8 @@ OBJS     = $(BUILD_DIR)/head.o    \
 		   $(BUILD_DIR)/vm.o        \
 		   $(BUILD_DIR)/vcpu.o      \
 		   $(BUILD_DIR)/guest.o     \
-		   $(BUILD_DIR)/timer.o
+		   $(BUILD_DIR)/timer.o     \
+		   $(BUILD_DIR)/virtio_dev.o
 
 # 链接脚本生成
 LDS_SRC = ./hypervisor/src/lds/linker.ld.S

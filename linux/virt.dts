@@ -57,6 +57,13 @@
 		};
 	};
 
+	virtio_mmio@a003a00 {
+		dma-coherent;
+		interrupts = <0x00 0x2d 0x01>;
+		reg = <0x00 0xa003a00 0x00 0x200>;
+		compatible = "virtio,mmio";
+	};
+
 	cpus {
 		#size-cells = <0x0>;
 		#address-cells = <0x1>;

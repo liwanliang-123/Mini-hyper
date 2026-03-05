@@ -11,6 +11,7 @@
 #include "vmm.h"
 #include "printf.h"
 #include "vmmio.h"
+#include "virtio_dev.h"
 
 struct vmmio_access;
 
@@ -180,6 +181,9 @@ void create_guest_vm(vm_config_t *vm_config)
 
     /* create new vgic distributor */
     vm->vgic_dist = create_vgic_dist(vm);
+
+    /* create virtio mmio trap */
+    create_dev_mmio_trap(vm);
 
     /* set vcpu[0] ready */
     // LOG_INFO("-->Set Guest vm vcpu[0] as ready\n");
